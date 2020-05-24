@@ -17,7 +17,8 @@ class HotelTransformer {
         if($hotel == null){
             return null;
         }
-        $hotelDTO = (new HotelDTO)->setNom($hotel->getNom())
+        $hotelDTO = (new HotelDTO)->setId($hotel->getId())
+                                  ->setNom($hotel->getNom())
                                   ->setNumeroAdresse($hotel->getNumeroAdresse())
                                   ->setNomAdresse($hotel->getNomAdresse())
                                   ->setVille($hotel->getVille())

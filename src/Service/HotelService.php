@@ -22,6 +22,12 @@ class HotelService {
         $this->hotelEntityManager = $manager;
     }
 
+    public function findOneSpecificHotel(int $id) {
+        $hotel = $this->hotelRepository->find($id);
+        $hotelDTO = HotelTransformer::transformHotelToHotelDTO($hotel);
+        return $hotelDTO;
+    }
+
     public function findAllHotels(){
         $hotels = $this->hotelRepository->findAll();
         $hotelDTOs = HotelTransformer::transformToListOfDTOS($hotels);

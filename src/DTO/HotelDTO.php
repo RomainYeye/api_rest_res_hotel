@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\Collection;
 
 class HotelDTO
 {
+    private $id;
     private $nom;
     private $numeroAdresse;
     private $nomAdresse;
@@ -25,6 +26,26 @@ class HotelDTO
     {
         $this->chambresDTO = new ArrayCollection();
         $this->tarificationsDTO = new ArrayCollection();
+    }
+
+     /**
+     * Get the value of id
+     */ 
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set the value of id
+     *
+     * @return  self
+     */ 
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getNom(): ?string

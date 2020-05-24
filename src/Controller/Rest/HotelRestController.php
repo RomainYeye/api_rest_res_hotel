@@ -25,18 +25,32 @@ class HotelRestController extends AbstractFOSRestController {
     private $hotelEntityManager;
     private $hotelRepository;
 
+    const SINGLE_HOTEL_URI = "/hotels/{id}"; 
     const ALL_HOTELS_URI = "/hotels";
     const ALL_HOTELS_BY_PAYS_URI = "/hotels/pays/{pays}";
     const ALL_HOTELS_BY_VILLE_URI = "/hotels/ville/{ville}";
-    const ALL_CATEGORIES_BY_HOTEL_URI = "/hotel/{idHotel}/categories";
-    const ALL_AVAILABLE_CHAMBRES_BY_DATES = "hotel/{idHotel}/categorie/{idCategorie}/begin/{dateDebut}/end/{dateFin}";
-    const SINGLE_HOTEL_URI = "/hotels/{id}"; 
+    const ALL_CATEGORIES_BY_HOTEL_URI = "/hotels/{idHotel}/categories";
+    const ALL_AVAILABLE_CHAMBRES_BY_DATES = "hotels/{idHotel}/categories/{idCategorie}/begin/{dateDebut}/end/{dateFin}";
 
     public function __construct(HotelService $hotelService, EntityManagerInterface $manager, HotelRepository $hotelRepository)
     {
         $this->hotelService = $hotelService;
         $this->hotelEntityManager = $manager;
         $this->hotelRepository = $hotelRepository;
+    }
+
+    /**
+     * Look for one specific hotel in database
+     * @Get(HotelRestController::SINGLE_HOTEL_URI)
+     * @param HotelRepository $hotelRepository
+     * @return Response
+     */
+    public function findOneSpecificHotel(int $id){
+        $hotel = $this->hotelService->findOneSpecificHotel($id);
+        if(empty($hotel)){
+            return View::create(null, Response::HTTP_NO_CONTENT);
+        }
+        return View::create($hotel, Response::HTTP_OK);
     }
 
     /**
